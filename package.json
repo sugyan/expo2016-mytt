@@ -1,0 +1,24 @@
+{
+  "name": "expo2016-mytt",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-plugin-react": "^6.2.1",
+    "webpack-dev-server": "^1.15.1"
+  },
+  "dependencies": {
+    "webpack": "^1.13.2"
+  }
+}
