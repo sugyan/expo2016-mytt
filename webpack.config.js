@@ -1,6 +1,8 @@
 /* eslint-env node */
 
-module.exports = {
+const webpack = require('webpack');
+
+const config = module.exports = {
     entry: './app/assets/src/js/main.jsx',
     output: {
         path: './app/assets/javascripts',
@@ -22,3 +24,11 @@ module.exports = {
         inline: true
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins = [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
+    ];
+}
