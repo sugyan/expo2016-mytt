@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider, connect } from 'react-redux';
+import { createStore } from 'redux';
 import 'whatwg-fetch';
 
+import { expo2016 } from './reducers';
+import { updateTimeTable } from './actions';
+
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { items: [] };
-    }
     componentDidMount() {
         fetch('/api/timetable.json').then((res) => {
             return res.json();
         }).then((json) => {
-            this.setState({ items: json });
+            this.props.fetchTimeTable(json);
         });
     }
     render() {
-        const items = this.state.items.map((e, i) => {
+        const items = this.props.items.map((e, i) => {
             return (
                 <div key={i}>
                   {`${new Date(e.start * 1000)}: ${e.artist}`}
@@ -31,8 +32,20 @@ class Main extends React.Component {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    const App = connect(
+        (state) => state,
+        (dispatch) => {
+            return {
+                fetchTimeTable: (data) => {
+                    dispatch(updateTimeTable(data));
+                }
+            };
+        }
+    )(Main);
     ReactDOM.render(
-        <Main />,
+        <Provider store={createStore(expo2016)}>
+          <App />
+        </Provider>,
         document.getElementById('main')
     );
 });
