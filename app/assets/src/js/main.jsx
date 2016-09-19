@@ -6,8 +6,9 @@ import moment from 'moment';
 import 'moment/locale/ja';
 import 'whatwg-fetch';
 
-import { expo2016 } from './redux/reducers';
+import reducers from './redux/reducers';
 import { updateTimeTable } from './redux/actions';
+import FilteringForm from './components/filtering_form';
 import TimeTable from './components/timetable';
 
 class Main extends React.Component {
@@ -18,14 +19,24 @@ class Main extends React.Component {
             this.props.fetchTimeTable(json.map((e) => {
                 e.start = moment(e.start * 1000);
                 e.end   = moment(e.end   * 1000);
+                e.day   = e.start.format('MM-DD');
                 return e;
             }));
         });
     }
     render() {
+        const items = this.props.timetable.items.filter((e) => {
+            if (! this.props.filter.day[e.day]) {
+                return false;
+            }
+            return true;
+        });
         return (
             <div>
-              <TimeTable items={this.props.items} />
+              <FilteringForm />
+              <hr />
+              <p>全{items.length}件</p>
+              <TimeTable items={items} />
             </div>
         );
     }
@@ -43,7 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     )(Main);
     ReactDOM.render(
-        <Provider store={createStore(expo2016)}>
+        <Provider store={createStore(reducers)}>
           <App />
         </Provider>,
         document.getElementById('main')

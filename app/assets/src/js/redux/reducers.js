@@ -1,6 +1,11 @@
-import { UPDATE_TIMETABLE } from './actions';
+import { combineReducers } from 'redux';
 
-export const expo2016 = (state = {
+import {
+    UPDATE_TIMETABLE,
+    FILTER_TOGGLE_CHECKBOX_DAY
+} from './actions';
+
+const timetable = (state = {
     items: []
 }, action) => {
     switch(action.type) {
@@ -12,3 +17,24 @@ export const expo2016 = (state = {
         return state;
     }
 };
+
+const filter = combineReducers({
+    day: (state = {
+        '09-24': true,
+        '09-25': true
+    }, action) => {
+        switch(action.type) {
+        case FILTER_TOGGLE_CHECKBOX_DAY:
+            return Object.assign({}, state, {
+                [action.name]: !state[action.name]
+            });
+        default:
+            return state;
+        }
+    }
+});
+
+export default combineReducers({
+    timetable,
+    filter
+});
