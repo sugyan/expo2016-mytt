@@ -19,8 +19,9 @@ namespace :timetable do
             start_time = Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M')
             end_time   = Time.zone.strptime("#{day} #{item['end'].rjust(4, '0')}",   '%Y-%m-%d %H%M')
             if stage == '特典会'
-              item['lineup'].each do |lineup|
+              item['lineup'].each.with_index do |lineup, i|
                 results << {
+                  id: [item['id'], i.to_s].join('-'),
                   stage: stage,
                   color: color,
                   start: start_time,
@@ -31,6 +32,7 @@ namespace :timetable do
               end
             else
               results << {
+                id: item['id'],
                 stage: stage,
                 color: color,
                 start: Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M'),

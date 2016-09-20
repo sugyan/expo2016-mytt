@@ -26,14 +26,14 @@ class Main extends React.Component {
     }
     render() {
         const regexp = this.props.filter.keyword ? new RegExp(this.props.filter.keyword, 'i') : null;
-        const items = this.props.timetable.items.filter((e) => {
-            if (! this.props.filter.day[e.day]) {
+        const items = this.props.timetable.items.filter((item) => {
+            if (! this.props.filter.day[item.day]) {
                 return false;
             }
-            if (! this.props.filter.stage[e.stage[0]]) {
+            if (! this.props.filter.stage[item.stage[0]]) {
                 return false;
             }
-            if (regexp && ! e.artist.match(regexp)) {
+            if (regexp && ! item.artist.match(regexp)) {
                 return false;
             }
             return true;
@@ -43,7 +43,7 @@ class Main extends React.Component {
               <FilteringForm />
               <hr />
               <p>全{items.length}件</p>
-              <TimeTable items={items} />
+              <TimeTable items={items} selected={this.props.timetable.selected} />
             </div>
         );
     }

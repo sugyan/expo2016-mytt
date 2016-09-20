@@ -1,28 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class TimeTable extends React.Component {
+import { selectItem } from '../redux/actions';
+
+class TimeTable extends React.Component {
     render() {
-        const items = this.props.items.map((e, i) => {
+        const items = this.props.items.map((item, i) => {
             return (
                 <tr key={i}>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     <div className="checkbox" style={{ marginTop: 0, marginBottom: 0 }}>
                       <label>
-                        <input type="checkbox" id={`item-${i}`} />
-                        {e.start.format('M/D(ddd) HH:mm')} - {e.end.format('HH:mm')}
+                        <input
+                            id={`item-${i}`}
+                            type="checkbox"
+                            checked={this.props.selected[item.id] ? true : false}
+                            onChange={(e) => this.props.dispatch(selectItem(item.id, e.target.checked))} />
+                        {item.start.format('M/D(ddd) HH:mm')} - {item.end.format('HH:mm')}
                       </label>
                     </div>
                   </td>
-                  <td style={{ backgroundColor: e.color, padding: '4px', width: '100%' }}>
+                  <td style={{ backgroundColor: item.color, padding: '4px', width: '100%' }}>
                     <label
                         style={{
                             backgroundColor: '#ffffff', padding: '4px', borderRadius: '4px',
                             display: 'block', marginBottom: 'initial', fontWeight: 'normal', cursor: 'pointer'
                         }}
                         htmlFor={`item-${i}`} >
-                        <small>{e.stage}</small>
+                        <small>{item.stage}</small>
                         <br />
-                        <strong>{e.artist}</strong>
+                        <strong>{item.artist}</strong>
                     </label>
                   </td>
                 </tr>
@@ -37,3 +44,4 @@ export default class TimeTable extends React.Component {
         );
     }
 }
+export default connect()(TimeTable);
