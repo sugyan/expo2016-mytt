@@ -11,6 +11,14 @@ class FilteringForm extends React.Component {
             { label: '9/25(日)', key: '09-25' }
         ];
         this.stages = [
+            { label: 'ストロベリーステージ', key: 'ス' },
+            { label: 'ブルーベリーステージ', key: 'ブ' },
+            { label: 'オレンジステージ',     key: 'オ' },
+            { label: 'グレープステージ',     key: 'グ' },
+            { label: 'キウイステージ',       key: 'キ' },
+            { label: 'ピーチステージ',       key: 'ピ' },
+            { label: 'トークステージ',       key: 'ト' },
+            { label: '特典会',               key: '特' }
         ];
     }
     render() {
@@ -25,6 +33,17 @@ class FilteringForm extends React.Component {
                 </label>
             );
         });
+        const stages = this.stages.map((e, i) => {
+            return (
+                <label key={i} className="checkbox-inline" style={{ marginLeft: '0px', marginRight: '10px' }}>
+                  <input
+                      type="checkbox"
+                      checked={this.props.stage[e.key]}
+                      onChange={() => this.props.dispatch(filterToggleCheckbox(e.key))} />
+                  {e.label}
+                </label>
+            );
+        });
         return (
             <form className="form-horizontal" onSubmit={(e) => e.preventDefault()}>
               <div className="form-group">
@@ -33,8 +52,7 @@ class FilteringForm extends React.Component {
               </div>
               <div className="form-group">
                 <label className="col-sm-2 control-label">ステージ</label>
-                <div className="col-sm-10">
-                </div>
+                <div className="col-sm-10">{stages}</div>
               </div>
               <div className="form-group">
                 <label className="col-sm-2 control-label">出演者名</label>

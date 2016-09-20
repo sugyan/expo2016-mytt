@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
     UPDATE_TIMETABLE,
-    FILTER_TOGGLE_CHECKBOX_DAY
+    FILTER_TOGGLE_CHECKBOX
 } from './actions';
 
 const timetable = (state = {
@@ -24,7 +24,26 @@ const filter = combineReducers({
         '09-25': true
     }, action) => {
         switch(action.type) {
-        case FILTER_TOGGLE_CHECKBOX_DAY:
+        case FILTER_TOGGLE_CHECKBOX:
+            return Object.assign({}, state, {
+                [action.name]: !state[action.name]
+            });
+        default:
+            return state;
+        }
+    },
+    stage: (state = {
+        'ス': true,
+        'ブ': true,
+        'オ': true,
+        'グ': true,
+        'キ': true,
+        'ピ': true,
+        'ト': true,
+        '特': false
+    }, action) => {
+        switch(action.type) {
+        case FILTER_TOGGLE_CHECKBOX:
             return Object.assign({}, state, {
                 [action.name]: !state[action.name]
             });

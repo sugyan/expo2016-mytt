@@ -29,6 +29,9 @@ class Main extends React.Component {
             if (! this.props.filter.day[e.day]) {
                 return false;
             }
+            if (! this.props.filter.stage[e.stage[0]]) {
+                return false;
+            }
             return true;
         });
         return (

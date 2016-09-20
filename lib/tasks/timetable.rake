@@ -16,14 +16,29 @@ namespace :timetable do
           stage = e['stage']
           color = e['color']
           e['turns'].each do |item|
-            results << {
-              stage: stage,
-              color: color,
-              start: Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M'),
-              end:   Time.zone.strptime("#{day} #{item['end'].rjust(4, '0')}", '  %Y-%m-%d %H%M'),
-              replacement: item['replacement'],
-              lineup: item['lineup'].map { |lineup| lineup['name'] }
-            }
+            start_time = Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M')
+            end_time   = Time.zone.strptime("#{day} #{item['end'].rjust(4, '0')}",   '%Y-%m-%d %H%M')
+            if stage == '特典会'
+              item['lineup'].each do |lineup|
+                results << {
+                  stage: stage,
+                  color: color,
+                  start: start_time,
+                  end: end_time,
+                  replacement: nil,
+                  lineup: [lineup['name']]
+                }
+              end
+            else
+              results << {
+                stage: stage,
+                color: color,
+                start: Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M'),
+                end:   Time.zone.strptime("#{day} #{item['end'].rjust(4, '0')}",   '%Y-%m-%d %H%M'),
+                replacement: item['replacement'],
+                lineup: item['lineup'].map { |lineup| lineup['name'] }
+              }
+            end
           end
         end
       end
