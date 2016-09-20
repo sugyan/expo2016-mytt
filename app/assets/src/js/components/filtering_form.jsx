@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { filterToggleCheckbox } from '../redux/actions';
+import { filterToggleCheckbox, filterChangeKeyword } from '../redux/actions';
 
 class FilteringForm extends React.Component {
     constructor(props) {
@@ -59,7 +59,9 @@ class FilteringForm extends React.Component {
                 <div className="col-sm-10">
                   <input
                       className="form-control"
-                      type="text" />
+                      type="text"
+                      value={this.props.keyword}
+                      onChange={(e) => this.props.dispatch(filterChangeKeyword(e.target.value))} />
                 </div>
               </div>
             </form>

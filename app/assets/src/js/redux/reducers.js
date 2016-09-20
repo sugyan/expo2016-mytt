@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
     UPDATE_TIMETABLE,
-    FILTER_TOGGLE_CHECKBOX
+    FILTER_TOGGLE_CHECKBOX, FILTER_CHANGE_KEYWORD
 } from './actions';
 
 const timetable = (state = {
@@ -47,6 +47,14 @@ const filter = combineReducers({
             return Object.assign({}, state, {
                 [action.name]: !state[action.name]
             });
+        default:
+            return state;
+        }
+    },
+    keyword: (state = '', action) => {
+        switch(action.type) {
+        case FILTER_CHANGE_KEYWORD:
+            return action.word;
         default:
             return state;
         }

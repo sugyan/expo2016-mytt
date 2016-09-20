@@ -25,11 +25,15 @@ class Main extends React.Component {
         });
     }
     render() {
+        const regexp = this.props.filter.keyword ? new RegExp(this.props.filter.keyword, 'i') : null;
         const items = this.props.timetable.items.filter((e) => {
             if (! this.props.filter.day[e.day]) {
                 return false;
             }
             if (! this.props.filter.stage[e.stage[0]]) {
+                return false;
+            }
+            if (regexp && ! e.artist.match(regexp)) {
                 return false;
             }
             return true;
