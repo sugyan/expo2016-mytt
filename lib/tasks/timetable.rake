@@ -3,6 +3,8 @@
 namespace :timetable do
   desc 'TODO'
   task main: :environment do
+    return if Time.zone.now > Time.zone.local(2016, 9, 26)
+
     days = {
       Date.new(2016, 9, 24) => 'http://leadi.jp/json/5194.json',
       Date.new(2016, 9, 25) => 'http://leadi.jp/json/5195.json'
@@ -27,6 +29,6 @@ namespace :timetable do
       end
     end
     results.sort_by!.with_index { |v, i| [v[:start], i] }
-    Rails.cache.write('main', results, expires_in: 3.hours)
+    Rails.cache.write('main', results)
   end
 end
