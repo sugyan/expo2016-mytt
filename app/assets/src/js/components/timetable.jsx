@@ -8,17 +8,22 @@ export default class TimeTable extends React.Component {
                   <td style={{ whiteSpace: 'nowrap' }}>
                     <div className="checkbox" style={{ marginTop: 0, marginBottom: 0 }}>
                       <label>
-                        <input type="checkbox" />
+                        <input type="checkbox" id={`item-${i}`} />
                         {e.start.format('M/D(ddd) HH:mm')} - {e.end.format('HH:mm')}
                       </label>
                     </div>
                   </td>
                   <td style={{ backgroundColor: e.color, padding: '4px', width: '100%' }}>
-                    <div style={{ backgroundColor: '#ffffff', padding: '4px', borderRadius: '4px' }}>
-                      <small>{e.stage}</small>
-                      <br />
-                      <strong>{e.artist}</strong>
-                    </div>
+                    <label
+                        style={{
+                            backgroundColor: '#ffffff', padding: '4px', borderRadius: '4px',
+                            display: 'block', marginBottom: 'initial', fontWeight: 'normal', cursor: 'pointer'
+                        }}
+                        htmlFor={`item-${i}`} >
+                        <small>{e.stage}</small>
+                        <br />
+                        <strong>{e.artist}</strong>
+                    </label>
                   </td>
                 </tr>
             );
