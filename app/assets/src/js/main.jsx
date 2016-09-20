@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import moment from 'moment';
 import 'moment/locale/ja';
 import 'whatwg-fetch';
 
+import Top from './top';
+import Result from './result';
 import reducers from './redux/reducers';
 import { updateTimeTable } from './redux/actions';
-import FilteringForm from './components/filtering_form';
-import TimeTable from './components/timetable';
 
 class Main extends React.Component {
     componentDidMount() {
@@ -25,25 +27,20 @@ class Main extends React.Component {
         });
     }
     render() {
-        const regexp = this.props.filter.keyword ? new RegExp(this.props.filter.keyword, 'i') : null;
-        const items = this.props.timetable.items.filter((item) => {
-            if (! this.props.filter.day[item.day]) {
-                return false;
-            }
-            if (! this.props.filter.stage[item.stage[0]]) {
-                return false;
-            }
-            if (regexp && ! item.artist.match(regexp)) {
-                return false;
-            }
-            return true;
-        });
         return (
             <div>
-              <FilteringForm />
-              <hr />
-              <p>全{items.length}件</p>
-              <TimeTable items={items} selected={this.props.timetable.selected} />
+              <nav className="navbar navbar-inverse navbar-fixed-top">
+                <div className="container-fluid">
+                  <div className="navbar-header">
+                    <Link to="/">
+                      <span className="navbar-brand">@JAM×ナタリーEXPO 2016 MyTT</span>
+                    </Link>
+                  </div>
+                </div>
+              </nav>
+              <div className="container-fluid">
+                {this.props.children}
+              </div>
             </div>
         );
     }
@@ -62,7 +59,12 @@ window.addEventListener('DOMContentLoaded', () => {
     )(Main);
     ReactDOM.render(
         <Provider store={createStore(reducers)}>
-          <App />
+          <Router history={hashHistory}>
+            <Route path="/" component={App}>
+              <IndexRoute component={Top} />
+              <Route path="/result" component={Result} />
+            </Route>
+          </Router>
         </Provider>,
         document.getElementById('main')
     );

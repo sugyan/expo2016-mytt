@@ -11,14 +11,14 @@ class FilteringForm extends React.Component {
             { label: '9/25(日)', key: '09-25' }
         ];
         this.stages = [
-            { label: 'ストロベリーステージ', key: 'ス' },
-            { label: 'ブルーベリーステージ', key: 'ブ' },
-            { label: 'オレンジステージ',     key: 'オ' },
-            { label: 'グレープステージ',     key: 'グ' },
-            { label: 'キウイステージ',       key: 'キ' },
-            { label: 'ピーチステージ',       key: 'ピ' },
-            { label: 'トークステージ',       key: 'ト' },
-            { label: '特典会',               key: '特' }
+            { label: 'ストロベリー', key: 'ス' },
+            { label: 'ブルーベリー', key: 'ブ' },
+            { label: 'オレンジ',     key: 'オ' },
+            { label: 'グレープ',     key: 'グ' },
+            { label: 'キウイ',       key: 'キ' },
+            { label: 'ピーチ',       key: 'ピ' },
+            { label: 'トーク',       key: 'ト' },
+            { label: '特典会',       key: '特' }
         ];
     }
     render() {
