@@ -1,6 +1,8 @@
 # coding: utf-8
 
 namespace :timetable do
+  logger = Logger.new(STDOUT)
+
   desc 'TODO'
   task main: :environment do
     return if Time.zone.now > Time.zone.local(2016, 9, 26)
@@ -11,11 +13,13 @@ namespace :timetable do
     }
     results = []
     days.each do |day, url|
+      logger.info(day)
       open(url) do |f|
         JSON.parse(f.read)['data']['timetables'].each do |e|
           stage = e['stage']
           color = e['color']
           e['turns'].each do |item|
+            logger.info(item)
             start_time = Time.zone.strptime("#{day} #{item['start'].rjust(4, '0')}", '%Y-%m-%d %H%M')
             end_time   = Time.zone.strptime("#{day} #{item['end'].rjust(4, '0')}",   '%Y-%m-%d %H%M')
             if stage == '特典会'
