@@ -1,5 +1,6 @@
 export const UPDATE_TIMETABLE = 'UPDATE_TIMETABLE';
 export const SELECT_ITEM      = 'SELECT_ITEM';
+export const GENERATE_RESULT  = 'GENERATE_RESULT';
 export const FILTER_TOGGLE_CHECKBOX = 'FILTER_TOGGLE_CHECKBOX';
 export const FILTER_CHANGE_KEYWORD  = 'FILTER_CHANGE_KEYWORD';
 
@@ -9,6 +10,10 @@ export const updateTimeTable = (data) => {
 
 export const selectItem = (id, checked) => {
     return { type: SELECT_ITEM, id, checked };
+};
+
+export const generateResult = (src) => {
+    return { type: GENERATE_RESULT, src };
 };
 
 export const filterToggleCheckbox = (name) => {

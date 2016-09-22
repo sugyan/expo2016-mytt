@@ -48,3 +48,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Others
 gem 'slim', '~> 3.0'
 gem 'redis-rails', '~> 5.0'
+gem 'rmagick', '~> 2.16'
