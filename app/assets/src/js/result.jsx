@@ -11,6 +11,7 @@ class Result extends React.Component {
             this.props.router.replace('/');
             return;
         }
+        this.props.dispatch(generateResult(null));
         const selected = this.props.timetable.items.filter((item) => {
             return item.id in this.props.timetable.selected;
         });
