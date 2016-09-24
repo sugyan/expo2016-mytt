@@ -29,7 +29,7 @@ class Result extends React.Component {
     }
     render() {
         const result = this.props.timetable.result
-                     ? <img src={this.props.timetable.result} />
+                     ? <img src={this.props.timetable.result} style={{ maxWidth: '100%' }} />
                      : <div>generating...</div>;
         return (
             <div>
